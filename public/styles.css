@@ -1,0 +1,65 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 50px;
+    background-color: #f0f0f0;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    margin: 20px auto;
+    text-align: center;
+  }
+  
+  input[type="file"] {
+    margin: 10px;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    margin: 10px 0;
+  }
+  
+  button {
+    margin-left: 10px;
+  }
+  .card {
+    border: 2px solid #000000; /* Adjust this value for border size */
+    background-color: rgb(55, 4, 99);
+    border-radius: 5px;       /* Optional: Rounds the corners of the card */
+    overflow: hidden;          /* Ensures images fit within rounded corners */
+}
+
+.card-img-top {
+    /*border: 3px solid #000000; /* Adjust this value for image border size */
+    /*border-radius: 10px;       /* Rounds the corners of the image */
+    max-width: 100%;           /* Ensures the image does not overflow its container */
+    height: auto;              /* Maintains the image's aspect ratio */
+    object-fit: cover;         /* Ensures the image covers the card without distortion */
+}
+.card-body {
+    background-image: url('/path/to/your/image.jpg'); /* Adjust the path to your image */
+    background-size: 12px; /* Use 'contain' or '100% 100%' as needed */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+   
+    padding: 20px; /* Add some padding inside the card */
+    color: rgb(198, 90, 90); /* Change text color for contrast */
+    border-radius: 50px; /* Round the corners (optional) */
+}
+.bg-secondary {
+    background-color: rgb(204, 173, 231); /* Adjust the background color */
+    height: auto; /* Automatically adjust the height based on content */
+}
+.card.bg-secondary {
+    background-image: url('/path/to/your/image.jpg'); /* Path to your image */
+    background-size: cover; /* Cover the entire card */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent repeating */
+}

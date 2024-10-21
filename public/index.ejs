@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="/styles.css"> <!-- Custom CSS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> <!-- SweetAlert2 for beautiful alerts -->
+    <style>
+      .card {
+          width: auto; /* Set desired width */
+          height: auto; /* Set desired height */
+          margin: auto; /* Add margin */
+          
+      }
+
+      .card.bg-secondary {
+          background-image: url('/path/to/your/image.jpg'); /* Add your background image */
+          background-size: cover; /* Adjust to cover */
+          background-color: blue;
+          background-position: center; /* Center the image */
+          background-repeat: no-repeat; /* Don't repeat the image */
+      }
+  </style>
+</head>
+<body class="bg-dark text-light">
+    <div class="container py-5">
+        <h1 class="text-center">Kho lưu Trữ</h1>
+        
+        <!-- Login Form -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-6">
+                <form action="/login" method="POST">
+                    <div class="form-group">
+                        <label for="username">Username (Cho admin để xóa hình)</label>
+                        <input type="text" name="username" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- File Upload Forms -->
+        <div class="row justify-content-center">
+            <div class="col-md-6 mb-4">
+                <!---<form action="/upload-single" method="POST" enctype="multipart/form-data"> --->
+                  <form action="/upload-single" method="POST" enctype="multipart/form-data">
+                    <div class="input-group">
+                        <input type="file" name="singleFile" class="form-control" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">Đăng Hình lẻ</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <form action="/upload-folder" method="POST" enctype="multipart/form-data">
+                    <div class="input-group">
+                        <input type="file" name="files" class="form-control" multiple required webkitdirectory mozdirectory>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">Đăng folder</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+      <!---  <h2 class="text-center mt-5">Hình đã up</h2>
+        <ul id="file-list" class="list-group mt-3">
+            <% files.forEach((file) => { %>
+                <li class="list-group-item bg-secondary text-light d-flex justify-content-between align-items-center">
+                    <a href="/uploads/<%= file %>" target="_blank" class="text-light"><%= file %></a>
+                    <form action="/delete/<%= encodeURIComponent(file) %>" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </li>
+            <% }) %>
+        </ul>
+    </div>    -->
+
+
+    <!-- Show success message as a popup -->
+      <div class="modal" id="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img id="modalImage" src="" alt="Large view" style="display:none;" />
+    <video id="modalVideo" controls style="display:none;">
+      <source id="modalVideoSource" src="" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <h2 class="text-center mt-5">Kho Anh</h2>
+  <div class="row">
+      <% files.forEach((file) => { %>
+          <% if (file.endsWith('.jpg') || file.endsWith('.jpeg') || file.endsWith('.png') || file.endsWith('.gif')) { %>
+              <div class="col-md-4 mb-4">
+                  <div class="card bg-secondary">
+                     <!--- <img src="/uploads/<%= file %>" class="card-img-top" alt="<%= file %>"> --->
+                     <img src="/uploads/<%= file %>" class="card-img-top" style="max-width: 100%; height: auto;" alt="<%= file %>">
+
+                      <div class="card-body">
+                         <!---- <h7 class="card-title text-light"><%= file %></h5> -->
+                          <form action="/delete/<%= encodeURIComponent(file) %>" method="POST" style="display:inline;">
+                              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          <% } else if (file.endsWith('.mp4') || file.endsWith('.avi')) { %>
+              <div class="col-md-4 mb-4">
+                  <div class="card bg-secondary">
+                      <video controls class="card-img-top">
+                          <source src="/uploads/<%= file %>" type="video/mp4">
+                          Your browser does not support the video tag.
+                      </video>
+                      <div class="card-body">
+                          <!---<h5 class="card-title text-light"><%= file %></h5>-->
+                          <form action="/delete/<%= encodeURIComponent(file) %>" method="POST" style="display:inline;">
+                              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          <% } %>
+      <% }) %>
+  </div>
+</div>
+
+</body>
+</html>
